@@ -1,10 +1,25 @@
+import { useContext } from "react";
 import { Link } from "react-router-dom";
 import img from "../../assets/images/login/login.svg";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-    const handleLogin = (event) => {
-        event.preventDefault()
-    }
+	const { signIn } = useContext(AuthContext);
+	const handleLogin = (event) => {
+		event.preventDefault();
+		const form = event.target;
+
+		const email = form.email.value;
+		const password = form.password.value;
+		console.log(email, password);
+
+		signIn(email, password)
+			.then((result) => {
+				const user = result.user;
+				console.log(user);
+			})
+			.catch((error) => console.log(error));
+	};
 	return (
 		<div className="hero min-h-screen bg-base-200">
 			<div className="hero-content flex-col lg:flex-row">
@@ -22,8 +37,8 @@ const Login = () => {
 							</label>
 							<input
 								type="email"
-                                placeholder="email"
-                                name="email"
+								placeholder="email"
+								name="email"
 								className="input input-bordered"
 								required
 							/>
@@ -33,8 +48,8 @@ const Login = () => {
 								<span className="label-text">Password</span>
 							</label>
 							<input
-                                type="password"
-                                name="password"
+								type="password"
+								name="password"
 								placeholder="password"
 								className="input input-bordered"
 								required
@@ -54,8 +69,15 @@ const Login = () => {
 								value="Login"
 							/>
 						</div>
-                    </form>
-                    <p className="text-center mb-10">New to Cars Shop ? <Link to="/signup" className="text-orange-600 font-bold">Sign up</Link></p>
+					</form>
+					<p className="text-center mb-10">
+						New to Cars Shop ?{" "}
+						<Link
+							to="/signup"
+							className="text-orange-600 font-bold">
+							Sign up
+						</Link>
+					</p>
 				</div>
 			</div>
 		</div>
