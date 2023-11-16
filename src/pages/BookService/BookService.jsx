@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
-const CheckOut = () => {
+const BookService = () => {
 	const service = useLoaderData();
 	const { title, _id, price, img } = service;
 	const { user } = useContext(AuthContext);
@@ -24,9 +24,9 @@ const CheckOut = () => {
 			service: title,
 			price: price,
 			img,
-        };
-        
-        // console.log(order);
+		};
+
+		// console.log(order);
 
 		fetch("http://localhost:5000/bookings", {
 			method: "POST",
@@ -37,15 +37,12 @@ const CheckOut = () => {
 		})
 			.then((res) => res.json())
 			.then((data) => {
-                // console.log(data);
-                if (data.insertedId) {
-                    alert('service book successfully')
-                }
+				// console.log(data);
+				if (data.insertedId) {
+					alert("service book successfully");
+				}
 			});
-
-		
 	};
-
 	return (
 		<div>
 			<h4 className="text-3xl font-bold text-center">
@@ -116,4 +113,4 @@ const CheckOut = () => {
 	);
 };
 
-export default CheckOut;
+export default BookService;
